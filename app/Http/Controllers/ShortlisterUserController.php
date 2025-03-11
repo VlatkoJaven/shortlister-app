@@ -22,18 +22,14 @@ class ShortlisterUserController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'full_name' => ['required', 'string', 'max:255', function ($attribute, $value, $fail) {
-                if (preg_match('/\d/', $value)) {
-                    $fail('The ' . $attribute . ' should not contain numbers.');
-                }
-            }],
+            'full_name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
             'email' => 'required|email|unique:shortlister_users,email',
-            'phone' => 'required|numeric',
-            'date_of_birth' => 'required|date',
+            'phone' => ['required', 'regex:/^\d+$/'],
+            'date_of_birth' => ['required', 'date', 'before_or_equal:today'],
         ]);
-
-        $this->userService->createUser($request->all());
-
+    
+        $this->userService->createUser($validated);
+    
         return redirect('/')->with('success', 'User created successfully.');
     }
 
