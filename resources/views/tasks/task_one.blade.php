@@ -6,7 +6,7 @@
 
 <div class="text-center mb-4">
     <h2>ER Diagram</h2>
-    <img src="{{ asset('images/newER-img.png') }}" alt="ER Diagram" class="img-fluid">
+    <img src="{{ asset('images/ER-new-img.png') }}" alt="ER Diagram" class="img-fluid">
 </div>
 
 
